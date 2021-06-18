@@ -1,3 +1,3 @@
-#Ejemplos Stream
+#Ejemplos Future
 
-- Simple Stream example 1 shows the use of StreamBuilder with a simple stream of integers
+- Simple Future example 1 shows the use of FutureBuilder with a simple async function that returns values depending on a random variable
