@@ -23,14 +23,6 @@ class FutureBuilderLoader extends StatefulWidget {
 }
 
 class _FutureBuilderLoaderState extends State<FutureBuilderLoader> {
-  int forceRefresh = 0;
-
-  void refresh() {
-    setState(() {
-      forceRefresh += 1;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,20 +30,25 @@ class _FutureBuilderLoaderState extends State<FutureBuilderLoader> {
           title: Text("Future sample 1"),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ElevatedButton(onPressed: () => refresh(), child: Text('Refresh')),
-            FutureBuilder(
-                future: getData(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Center(child: Text('DONE with ${snapshot.data}'));
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('ERROR -> ${snapshot.error}'));
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                })
+            Expanded(
+              child: FutureBuilder(
+                  future: getData(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Center(child: Text('DONE with ${snapshot.data}'));
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('ERROR -> ${snapshot.error}'));
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  }),
+            ),
+            Container(
+                child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text('Restart the app to get different result'),
+            )),
           ],
         ));
   }
